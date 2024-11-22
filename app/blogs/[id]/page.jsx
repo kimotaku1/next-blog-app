@@ -13,24 +13,22 @@ const Page = () => {
 
   const params = useParams(); // Get route parameters safely
 
-  const fetchBlogData = async () => {
-    try {
-      const response = await axios.get("/api/blog", {
-        params: {
-          id: params.id,
-        },
-      });
-      if (response.data) {
-        setData(response.data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch blog data:", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchBlogData = async () => {
+      try {
+        const response = await axios.get("/api/blog", {
+          params: { id: params.id },
+        });
+        if (response.data) {
+          setData(response.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch blog data:", error);
+      }
+    };
+  
     if (params?.id) fetchBlogData();
-  }, [params?.id]); // Re-run if `id` changes
+  }, [params?.id]);
 
   return data ? (
     <>
